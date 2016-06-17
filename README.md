@@ -1,17 +1,17 @@
 # ionic-chat
 Projeto desenvolvido para apresentação do Ionic 2 na disciplina de Tópicos em Sistemas de Informação II [7º período]
 
-1 Clonar o repositório
+1. Clonar o repositório
 ```bash
 git clone git@github.com:plinionaves/ionic-chat.git
 ```
 
-2 Instalar dependências
+2. Instalar dependências
 ```bash
 npm install
 ```
 
-3 Executar aplicação
+3. Executar aplicação
 ```bash
 ionic serve
 ```
@@ -22,12 +22,12 @@ Ao instalar o NodeJS o NPM já estará incluso na instalação. O NPM é quem fa
 
 Siga os passos para instalar o Ionic 2 e Cordova:
 
-1 Instalando Ionic 2
+1. Instalando Ionic 2
 ```bash
 npm install -g ionic@beta
 ```
 
-2 Instalando Cordova
+2. Instalando Cordova
 ```bash
 npm install -g cordova
 ```
