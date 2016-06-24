@@ -1,5 +1,5 @@
 <ion-navbar dynamic>
-  <ion-title>Chat</ion-title>
+  <ion-title>{{ segmentSelected | ucfirst }}</ion-title>
 
   <button menuToggle>
     <ion-icon name="menu"></ion-icon>
@@ -7,20 +7,55 @@
 
 </ion-navbar>
 
-<ion-content class="chat">
+<ion-toolbar dynamic>
 
-  <p [hidden]="messages.length > 0" text-center>{{ view.message }}</p>
+  <ion-segment white [(ngModel)]="segmentSelected">
+    <ion-segment-button value="chat">
+      <ion-icon name="chatboxes"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="contacts">
+      <ion-icon name="contacts"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
 
-  <ion-list>
-    <ion-item *ngFor="let msg of messages">
-      <h2>{{ msg.message }}</h2>
-      <p>{{ msg.sender }} <span class="date" item-right>{{ formatDate(msg.date) }}</span></p>
-    </ion-item>
-  </ion-list>
+</ion-toolbar>
+
+<ion-content class="chat" [ngSwitch]="segmentSelected">
+
+  <!-- chat -->
+  <div *ngSwitchWhen="'chat'">
+
+    <p [hidden]="messages.length > 0" text-center>{{ ui.message.messages }}</p>
+
+    <ion-list>
+      <ion-item *ngFor="let msg of messages">
+        <h2>{{ msg.message }}</h2>
+        <p>{{ msg.sender }} <span class="date" item-right>{{ formatDate(msg.date) }}</span></p>
+      </ion-item>
+    </ion-list>
+
+  </div>
+
+  <!-- contacts -->
+  <div *ngSwitchWhen="'contacts'">
+
+    <p [hidden]="users.length > 0" text-center>{{ ui.message.users }}</p>
+
+    <ion-list>
+      <ion-item *ngFor="let user of users">
+        <ion-avatar item-left>
+          <ion-icon name="contact" dynamic></ion-icon>
+        </ion-avatar>
+        <h2>{{ user.name }}</h2>
+        <p>Online</p>
+      </ion-item>
+    </ion-list>
+
+  </div>
 
 </ion-content>
 
-<ion-footer-bar>
+<ion-toolbar position="bottom" [hidden]="segmentSelected != 'chat'">
     <ion-row>
       <ion-col width-80>
           <ion-input type="text" [(ngModel)]="newMessage" placeholder="Mensagem..."></ion-input>
@@ -29,4 +64,4 @@
         <button dynamic (click)="sendMessage()"><ion-icon name="send"></ion-icon></button>
       </ion-col>
     </ion-row>
-</ion-footer-bar>
+</ion-toolbar>

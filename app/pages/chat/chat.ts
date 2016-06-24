@@ -1,33 +1,44 @@
 import {Component, ViewChild} from '@angular/core';
-import {Content} from 'ionic-angular';
-import {NavController, Alert} from 'ionic-angular';
+import {NavController, Alert, Content} from 'ionic-angular';
 import {SocketIo} from './../../providers/socket-io/socket-io';
 import {User} from './../../models/user';
+import {Ucfirst} from './../../pipes/ucfirst';
 
 @Component({
-  templateUrl: 'build/pages/chat/chat.html'
+  templateUrl: 'build/pages/chat/chat.html',
+  pipes: [Ucfirst]
 })
 export class ChatPage {
 
   @ViewChild(Content) content: Content;
 
   private messages: Array<any>;
+  private users: Array<any>;
   private socket: any;
-  newMessage: string;
-  view: any;
+  public newMessage: string;
+  public ui: any;
+  public segmentSelected:string = 'chat';
 
   constructor(private nav: NavController, private socketIo: SocketIo, private user: User) {
     this.messages = [];
     this.socket = socketIo.getSocket();
-    this.view = {
-      message: 'Carregando mensagens...'
+    this.ui = {
+      message: {
+        messages: 'Carregando mensagens...',
+        users: 'Carregando usuários...'
+      }
     };
 
     // listener of events
-    this.socket.on('initialMessages', (data) => {
+    this.socket.on('startData', (data) => {
+      this.users = data.users;
       this.messages = data.messages;
+
+      if (this.users.length <= 0) {
+        this.ui.message.users = 'Nenhum usuário online.';
+      }
       if (this.messages.length <= 0) {
-        this.view.message = 'Nenhuma mensagem enviada...';
+        this.ui.message.messages = 'Nenhuma mensagem enviada...';
       }
       setTimeout(() => {
         this.scrollBottom();
@@ -38,6 +49,17 @@ export class ChatPage {
       this.messages.push(data);
       this.scrollBottom();
     });
+
+    this.socket.on('user', (user) => {
+      this.users.push(user);
+    });
+
+    this.socket.on('userOff', (userOff) => {
+      this.users = this.users.filter((user) => {
+        return user.name != userOff.name;
+      });
+    });
+
   }
 
   scrollBottom() {
@@ -93,6 +115,9 @@ export class ChatPage {
             if (name) {
                 this.user.setUserName(name);
                 this.sendMessage();
+                this.socket.emit('user', {
+                  name: this.user.getUserName()
+                });
             }
           }
         }
