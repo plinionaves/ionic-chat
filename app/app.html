@@ -6,13 +6,9 @@
 
   <ion-content>
     <ion-list>
-      <button ion-item (click)="openPage(chat)" menuClose>
-        <ion-icon name="home"></ion-icon>
-        Chat
-      </button>
-      <button ion-item (click)="openPage(map)" menuClose>
-        <ion-icon name="information-circle"></ion-icon>
-        Mapa
+      <button *ngFor="let page of pages" ion-item (click)="openPage(page.component)" menuClose>
+        <ion-icon name="{{ page.icon }}"></ion-icon>
+        {{ page.title }}
       </button>
     </ion-list>
   </ion-content>

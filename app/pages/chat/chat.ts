@@ -93,7 +93,6 @@ export class ChatPage {
     } else {
       this.getUserName();
     }
-    console.log('clicou');
   }
 
   getUserName() {

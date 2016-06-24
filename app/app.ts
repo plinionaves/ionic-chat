@@ -12,11 +12,19 @@ import {User} from './models/user';
 })
 export class MyApp {
 
-  chat: any = ChatPage;
-
-  rootPage: any = this.chat;
+  pages: Array<any>;
+  rootPage: any = ChatPage;
 
   constructor(platform: Platform) {
+
+    this.pages = [
+      {
+        component: ChatPage,
+        title: 'Chat',
+        icon: 'chatboxes'
+      }
+    ];
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
