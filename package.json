@@ -26,8 +26,8 @@
     "ionic-gulp-scripts-copy": "^2.0.0",
     "run-sequence": "1.1.5"
   },
-  "name": "dynamicapptest",
-  "description": "DynamicAppTest: An Ionic project",
+  "name": "ionic-chat",
+  "description": "Projeto Ionic Chat para apresentação na disciplina Tópicos em Sistemas de Informação II",
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",
