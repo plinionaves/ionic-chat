@@ -27,7 +27,11 @@
     "run-sequence": "1.1.5"
   },
   "name": "ionic-chat",
+<<<<<<< HEAD
   "description": "Projeto Ionic Chat para apresentação na disciplina Tópicos em Sistemas de Informação II",
+=======
+  "description": "Ionic Chat: Projeto desenvolvido para apresentação na disciplina de Tópicos em Sistemas de Informação II",
+>>>>>>> fb5bc109c8b5c97ccfd482cf2298234800d72075
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",
